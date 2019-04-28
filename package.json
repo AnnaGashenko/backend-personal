@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "NODE_ENV=production node -r @babel/register './node_modules/.bin/webpack' --config=./webpack/webpack.config.js",
+    "test": "jest --no-cache --verbose --detectOpenHandles --forceExit --projects ./jest/jest.test.config.json",
     "lint:eslint": "jest --projects 'jest/jest.eslint.config.json'"
   },
   "engines": {

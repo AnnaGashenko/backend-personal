@@ -5,16 +5,17 @@ import mongoose from 'mongoose';
 import { base } from './base';
 
 // Document shape
-export const staff = base.discriminator(
-    'staff',
+export const customers = base.discriminator(
+    'customers',
     new mongoose.Schema(
         {
-            role: {
+            city: {
                 type: String,
-                required: true,
+                index: 'text',
             },
-            disabled: {
-                type: Boolean,
+            country: {
+                type: String,
+                index: 'text',
             },
         },
     ),

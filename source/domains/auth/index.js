@@ -2,7 +2,7 @@
 import dg from 'debug';
 
 // Instruments
-import { Staff } from '../../controllers';
+import { Login } from '../../controllers';
 
 const debug = dg('router:auth');
 
@@ -19,10 +19,10 @@ export const post = async (req, res) => {
             .toString()
             .split(':');
 
-        const staff = new Staff({ email, password });
-        const hash = await staff.login();
+        const login = new Login({ email, password });
+        const { hash, __t } = await login.login();
 
-        req.session.user = { hash };
+        req.session.user = { hash, __t };
         res.sendStatus(204);
     } catch (error) {
         res.status(401).json({ message: error.message });

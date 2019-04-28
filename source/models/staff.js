@@ -1,27 +1,36 @@
 // Core
 import bcrypt from 'bcrypt';
+import dg from 'debug';
 
 // Instruments
 import { staff } from '../odm';
+
+const debug = dg('router:staff');
 
 export class Staff {
     constructor(data) {
         this.data = data;
     }
 
-    async login() {
-        const { email, password } = this.data;
-        const { hash, password: userPassword } = await staff
-            .findOne({ email })
-            .select('password hash')
-            .lean();
+    async create() {
+        const { password } = this.data;
+        const hashedPassword = await bcrypt.hash(password, 11);
 
-        const match = await bcrypt.compare(password, userPassword);
+        const staffData = {
+            ...this.data,
+            password: hashedPassword,
+        };
 
-        if (!match) {
-            throw new Error('Credentials are not valid');
-        }
 
-        return hash;
+        debug(`staff - ${JSON.stringify(staffData)}`);
+        const data = await staff.create(staffData);
+
+        return data;
+    }
+
+    async find() {
+        const data = await staff.find().lean();
+
+        return data;
     }
 }

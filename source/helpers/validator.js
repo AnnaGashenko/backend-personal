@@ -15,6 +15,6 @@ export const validator = (schema) => (req, res, next) => {
         const errors = validate.errors.map(({ message }) => message).join(', ');
         const body = JSON.stringify(req.body, null, 2);
 
-        next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ]\n${body}`));
+        next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ] \n${body}`));
     }
 };
