@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "build": "NODE_ENV=production node -r @babel/register './node_modules/.bin/webpack' --config=./webpack/webpack.config.js",
+    "build": "set NODE_ENV=production node -r @babel/register './node_modules/.bin/webpack' --config=./webpack/webpack.config.js",
     "test": "jest --no-cache --verbose --detectOpenHandles --forceExit --projects ./jest/jest.test.config.json",
-    "lint:eslint": "jest --projects 'jest/jest.eslint.config.json'"
+    "lint:eslint": "jest --projects ./jest/jest.eslint.config.json"
   },
   "engines": {
     "node": "10.x"
@@ -31,6 +31,7 @@
     "mongodb-memory-server": "^5.0.4",
     "nock": "^10.0.6",
     "nodemon": "^1.18.11",
+    "sinon": "^7.3.2",
     "supertest": "^4.0.2",
     "webpack": "^4.30.0",
     "webpack-bundle-analyzer": "^3.3.2",

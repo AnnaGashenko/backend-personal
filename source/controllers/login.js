@@ -7,7 +7,6 @@ const debug = dg('router:login');
 
 export class Login {
     constructor(data) {
-        console.log('CONTROLLER', JSON.stringify(data, null,4));
         this.models = {
             login: new LoginModel(data),
         };
