@@ -44,10 +44,12 @@ export class Customers {
 
     async update() {
         const { hash, payload } = this.data;
+        const { password } = payload;
+        const hashedPassword = await bcrypt.hash(password, 11);
         const data = await customers
             .findOneAndUpdate(
                 { hash },
-                { ...payload },
+                { ...payload, password: hashedPassword },
                 { new: true }
             )
             .lean();
@@ -55,7 +57,7 @@ export class Customers {
         return data;
     }
 
-    async delete() {
+    async remove() {
         const { hash } = this.data;
         await customers.findOneAndDelete({ hash });
 

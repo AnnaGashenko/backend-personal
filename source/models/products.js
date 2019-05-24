@@ -50,7 +50,7 @@ export class Products {
         return data;
     }
 
-    async delete() {
+    async remove() {
         const { hash } = this.data;
         await products.findOneAndDelete({ hash });
 

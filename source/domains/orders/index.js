@@ -4,7 +4,7 @@ import dg from 'debug';
 // Instruments
 import { Orders } from '../../controllers';
 
-const debug = dg('router:products');
+const debug = dg('router:orders');
 
 export const get = async (req, res) => {
     debug(`${req.method} — ${req.originalUrl}`);
@@ -23,7 +23,6 @@ export const post = async (req, res) => {
     debug(`${req.method} — ${req.originalUrl}`);
 
     try {
-        console.log(JSON.stringify(req.body, null,4));
         const orders = new Orders(req.body);
         const data = await orders.create();
 

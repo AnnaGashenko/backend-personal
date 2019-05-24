@@ -15,7 +15,7 @@ route.get('/', [ authenticate ], orders.get);
 route.post('/', [ authenticate, validator(createOrder) ], orders.post);
 
 route.get('/:orderHash', [ authenticate ], orderHash.get);
-route.put('/:productHash', [ authenticate, validator(createOrder) ], orderHash.put);
-route.delete('/:productHash', [ authenticate ], orderHash.remove);
+route.put('/:orderHash', [ authenticate, validator(createOrder) ], orderHash.put);
+route.delete('/:orderHash', [ authenticate ], orderHash.remove);
 
 export { route as orders };

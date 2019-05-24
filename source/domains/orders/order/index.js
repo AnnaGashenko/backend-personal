@@ -41,7 +41,7 @@ export const remove = async (req, res) => {
     try {
         const { orderHash: hash } = req.params;
         const orders = new Orders({ hash });
-        await orders.delete();
+        await orders.remove();
 
         res.sendStatus(204);
     } catch (error) {

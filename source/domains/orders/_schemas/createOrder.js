@@ -9,6 +9,7 @@ export default {
         },
         count: {
             type: 'number',
+            minimum: 1,
         },
         comment: {
             type: 'string',

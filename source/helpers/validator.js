@@ -12,9 +12,10 @@ export const validator = (schema) => (req, res, next) => {
     if (valid) {
         next();
     } else {
-        const errors = validate.errors.map(({ message }) => message).join(', ');
-        const body = JSON.stringify(req.body, null, 2);
+        const errors = validate.errors.map(error => {
+            return (error.keyword === 'required') ? `${error.message}` : `${error.dataPath.substring(1)} : ${error.message}`
+        }).join(', ');
 
-        next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ] \n${body}`));
+        next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ]`));
     }
 };

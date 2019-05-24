@@ -1,8 +1,11 @@
-const v4 = require('uuid/v4');
+import v4 from 'uuid/v4';
 
 module.exports = (schema, options) => {
     schema.add({
-        hash: String,
+        hash: {
+            type: String,
+            index: true,
+        },
     });
 
     schema.pre('save', function (next) {

@@ -31,8 +31,8 @@ export class Orders {
         return data;
     }
 
-    async delete() {
-        const data = await this.models.products.delete();
+    async remove() {
+        const data = await this.models.orders.remove();
 
         return data;
     }

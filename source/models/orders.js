@@ -22,14 +22,14 @@ export class Orders {
 
         if(total < count) {
             throw new Error('Count of products in order more than we have');
-        } else {
-            const data = await orders.create(ordersData);
-            const productCount = total - count;
-
-            await products.findByIdAndUpdate(pid, { total: productCount});
-
-            return data;
         }
+
+        const data = await orders.create(ordersData);
+        const productCount = total - count;
+
+        await products.findByIdAndUpdate(pid, { total: productCount});
+
+        return data;
     }
 
     async find() {
@@ -49,6 +49,19 @@ export class Orders {
 
     async update() {
         const { hash, payload } = this.data;
+        const { pid, count } = payload;
+        const { count: countBefore } =  await orders.findOne({ hash }).select('count -_id').lean();
+
+        const orderCountDifference = countBefore - count;
+
+        const { total } =  await products.findById(pid).select('total -_id').lean();
+
+        const productCount = total + orderCountDifference;
+
+        if (orderCountDifference !== 0) {
+            await products.findByIdAndUpdate(pid, { total: productCount});
+        }
+
         const data = await orders
             .findOneAndUpdate(
                 { hash },
@@ -60,8 +73,9 @@ export class Orders {
         return data;
     }
 
-    async delete() {
+    async remove() {
         const { hash } = this.data;
+        console.log('hash', hash);
         await orders.findOneAndDelete({ hash });
 
         return true;

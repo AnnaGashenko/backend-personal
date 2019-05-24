@@ -41,7 +41,7 @@ export const remove = async (req, res) => {
     try {
         const { hash } = req.params;
         const customers = new Customers({ hash });
-        await customers.delete();
+        await customers.remove();
 
         res.sendStatus(204);
     } catch (error) {

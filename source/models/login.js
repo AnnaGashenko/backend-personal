@@ -17,7 +17,6 @@ export class Login {
             .select('password hash __t')
             .lean();
 
-        //console.log(JSON.stringify(data, null, 4));
 
         const match = await bcrypt.compare(password, userPassword);
 
