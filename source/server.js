@@ -1,8 +1,8 @@
 // Core
 import express from 'express';
+import redis from 'redis';
 import session from 'express-session';
-import mongoose from 'mongoose';
-import connectMongo from 'connect-mongo';
+import connectRedis from 'connect-redis';
 import dg from 'debug';
 
 // Routes
@@ -14,9 +14,10 @@ import { requireJsonContent, getPassword, NotFoundError } from './helpers';
 // Initialize DB connection
 import './db';
 
+const client  = redis.createClient();
 const app = express();
 const debug = dg('server:init');
-const MongoStore = connectMongo(session);
+const RedisStore = connectRedis(session);
 
 const sessionOptions = {
     key:               'user',
@@ -24,7 +25,7 @@ const sessionOptions = {
     resave:            false,
     rolling:           true,
     saveUninitialized: false,
-    store:             new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new RedisStore({ host: 'localhost', port: 6379, client: client, ttl: 60*15 }),
     cookie:            {
         httpOnly: true,
         maxAge:   15 * 60 * 1000,

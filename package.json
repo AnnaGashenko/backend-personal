@@ -44,6 +44,7 @@
     "ajv": "^6.10.0",
     "bcrypt": "^3.0.6",
     "connect-mongo": "^2.0.3",
+    "connect-redis": "^3.4.1",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
@@ -56,6 +57,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.5.1",
+    "redis": "^2.8.0",
     "swagger-ui-express": "^4.0.2",
     "uuid": "^3.3.2",
     "winston": "^3.2.1"
